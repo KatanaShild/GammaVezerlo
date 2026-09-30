@@ -44,5 +44,3 @@ A `forras\` mappában van a teljes forráskód. A `forras\epit.bat` a Windowsba 
 - Az NVIDIA-vibrance csak akkor él, ha a kijelző az NVIDIA GPU-ra van kötve. Hibrid grafikájú laptopon a belső kijelző általában az Intel GPU-n van, ilyenkor a program szoftveres vibrance-ra vált (a státuszsor kiírja).
 - A szaturáció / fényerő / kontraszt / hőmérséklet (színmátrix) exkluzív teljes képernyős játékban nem látszik, csak ablakos vagy borderless módban. A gamma-görbe (fények, árnyékok, stb.) és az NVIDIA-vibrance ettől független.
 - A gamma-görbe módosítás rendszerszintű; ha bármi elromlana, a program bezárása visszaállítja az alapértékeket.
-
-A régi PowerShell-es verzió a `regi_powershell_verzio\` mappában maradt, ha kellene.
