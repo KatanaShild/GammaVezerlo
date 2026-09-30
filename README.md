@@ -1,55 +1,48 @@
-# Gamma Vezerlő 🖥️
+# Gamma Vezérlő 🖥️
 
-Egyszerű Windows GUI eszköz a monitor gamma / fényerő / szaturáció / színhőmérséklet finomhangolásához, a Windows beépített `SetDeviceGammaRamp` API-ján keresztül — külső driver vagy monitor-szoftver nélkül.
+Kijelző színbeállító játékhoz: vibrance, szaturáció, gamma, fények/árnyékok és még sok más — egyetlen kis `.exe`, telepítés nélkül.
 
-![Platform](https://img.shields.io/badge/platform-Windows-blue)
-![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE)
+## Indítás
 
-## Miért készült?
+1. Csomagold ki a zipet egy normál mappába (pl. Dokumentumok, ne a zipből futtasd).
+2. Indítsd a **`GammaVezerlo.exe`**-t. Rendszergazdai jog nem kell.
+3. Ha a Windows SmartScreen figyelmeztet („A Windows megvédte a számítógépét"): **További információ → Futtatás mégis**. Az `.exe` nincs digitálisan aláírva, ezért kérdez rá. (Alternatíva: jobb klikk az `.exe`-n → Tulajdonságok → „Feloldás".)
 
-Sok monitoron/laptopon nincs kényelmes beépített eszköz a gamma és a színhőmérséklet gyors állítására anélkül, hogy a Windows Beállítások mélyére kellene ásni, vagy egy nehézsúlyú gyártói szoftvert kellene telepíteni. Ez egy pár száz KB-os, egyetlen mappában futó alternatíva.
+## Amit tud
 
-## Funkciók
+- 🎚️ **Vibrance** (0–100% NVIDIA driver, 100–350% szoftveres) és **Szaturáció** (0–300%)
+- 🎛️ **Finomhangolás:** Fényerő, Kontraszt, Fények, Feketék, Árnyék árnyalat, Gamma, Hőmérséklet, Árnyékok, Fehérek, Fény árnyalat
+- 🎞️ **Jelenetek:** beépített look-ok + saját mentett look-ok
+- 📤 **Megosztás kóddal:** a „Kód másolása" egy rövid `GV1-…` kódot ad a vágólapra; akinek elküldöd, a „Beillesztés" gombbal betölti pontosan ugyanazt a beállítást
+- 🔔 **Tálca-ikon:** az ablak bezárása (X) a tálcára küldi a programot, a hatás közben megmarad. Jobb klikk az ikonra: Megnyitás, Eredeti kép, Jelenetek (gyorsváltás), Indítás Windowsszal, Kilépés. Dupla kattintás az ikonra: ablak ki/be
+- 🚀 **Indítás Windowsszal** (a tálca-menüből vagy az ablak alján lévő gombbal) — a tálcára indul, ablak nélkül
+- 🔒 Egyszerre csak egy példány fut; ha másodszor indítod, az elsőt hozza elő
+- ⌨️ Globális gyorsbillentyűk (játék közben is): `Ctrl+Alt+G` ablak, `Ctrl+Alt+↑/↓` vibrance, `Ctrl+Alt+O` eredeti kép ki/be
+- Csúszkán: dupla kattintás = alapérték, egérgörgő / nyílbillentyűk = finom léptetés
+- Kilépéskor minden visszaáll az alapértékre
 
-- 🎚️ Csúszkás vezérlés: **Gamma**, **Fényerő**, **Szaturáció**, **Színhőmérséklet** (meleg ↔ hideg)
-- 🖥️ Több monitor egyszerre (`EnumDisplayDevices` + gamma-rámpa minden aktív kijelzőre)
-- 💾 **Profilok** mentése / betöltése / törlése (pl. "Filmnézés", "Munka", "Játék")
-- ⌨️ Globális gyorsbillentyűk (működnek teljes képernyős alkalmazásban/játékban is):
-  - `Ctrl + Alt + G` — ablak elrejtése / előhozása
-  - `Ctrl + Alt + ↑` / `Ctrl + Alt + ↓` — fényerő gyors léptetése
-- 🔁 Legutóbbi beállítás automatikus visszatöltése induláskor
-- ✅ Kilépéskor automatikusan visszaállítja az alapértelmezett gamma-értékeket
+## Hol tárolja az adatait?
 
-## Telepítés / használat
+`%AppData%\GammaVezerlo\` (beírhatod a Windows Fájlkezelő címsorába)
 
-1. Töltsd le / klónozd a repót.
-2. Indítsd el a `Gamma Vezerlo.bat` fájlt.
-3. Az első indításkor létrejön az Asztalon egy parancsikon is, a program saját ikonjával — ez automatikusan frissül akkor is, ha máshova másolod a mappát.
+- `profilok\` — a mentett look-ok (`.json`)
+- `allapot.json` — az utolsó beállítás
+- `hiba.log` — csak ha váratlan hiba történt
 
-Nincs szükség telepítésre, rendszergazdai jog sem kell — a gamma-rámpa állítása normál felhasználói jogosultsággal is működik.
+A régi (PowerShell-es) verzió `profilok` mappáját és `allapot.json`-ját a program az első indításkor automatikusan átveszi, ha az `.exe` mellett találja.
 
-## Követelmények
+## Eltávolítás
 
-- Windows 10 / 11
-- PowerShell 5.1 (Windows-szal alapból jön)
+Kapcsold ki az „Indítás Windowsszal"-t, lépj ki a programból, majd töröld a mappát (és ha akarod, a `%AppData%\GammaVezerlo` mappát).
 
-## Mappa felépítés
+## Újrafordítás (opcionális)
 
-```
-GammaVezerlo/
-├── Gamma Vezerlo.bat      # Indító
-├── gammagui.ps1           # Fő GUI alkalmazás
-├── mkshort.ps1            # Asztali parancsikon generátor (automatikusan lefut)
-├── make_ico.ps1           # Ikon generáló script (ikon.png -> gammagui.ico)
-├── ikon.png                # Forrás logó
-├── gammagui.ico             # Alkalmazás ikon (több felbontásban)
-└── profilok/                # Ide kerülnek a mentett profilok
-```
+A `forras\` mappában van a teljes forráskód. A `forras\epit.bat` a Windowsba beépített .NET Framework 4 fordítójával újraépíti a `GammaVezerlo.exe`-t — semmit nem kell telepíteni.
 
-## Figyelmeztetés
+## Ismert korlátok
 
-A gamma-rámpa módosítás rendszerszintű, minden futó alkalmazásra hat (nem csak a Gamma Vezerlőre). Ha valami extrém beállítást mentesz el és nem tudod visszaállítani, zárd be a programot (ez visszaállítja az alapértéket), vagy indítsd újra a gépet.
+- Az NVIDIA-vibrance csak akkor él, ha a kijelző az NVIDIA GPU-ra van kötve. Hibrid grafikájú laptopon a belső kijelző általában az Intel GPU-n van, ilyenkor a program szoftveres vibrance-ra vált (a státuszsor kiírja).
+- A szaturáció / fényerő / kontraszt / hőmérséklet (színmátrix) exkluzív teljes képernyős játékban nem látszik, csak ablakos vagy borderless módban. A gamma-görbe (fények, árnyékok, stb.) és az NVIDIA-vibrance ettől független.
+- A gamma-görbe módosítás rendszerszintű; ha bármi elromlana, a program bezárása visszaállítja az alapértékeket.
 
-## Licenc
-
-Szabadon felhasználható, módosítható, továbbfejleszthető.
+A régi PowerShell-es verzió a `regi_powershell_verzio\` mappában maradt, ha kellene.
